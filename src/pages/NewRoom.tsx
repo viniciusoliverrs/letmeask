@@ -8,7 +8,7 @@ import { AuthContext } from '../App';
 import { useContext } from 'react';
 
 export function NewRoom() {
-    const value = useContext(AuthContext);
+    const { user, signInWithGoogle } = useContext(AuthContext);
     return (
         <div id="page-auth">
             <aside>
@@ -19,6 +19,7 @@ export function NewRoom() {
             <main>
                 <div className='main-content'>
                     <img src={logoImg} alt='Letmeask' />
+                    <h2>{user?.name}</h2>
                     <h2>Criar uma nova sala</h2>
                     <form>
                         <input type="text" placeholder='Nome da sala' />
