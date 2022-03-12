@@ -1,51 +1,24 @@
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
 import { Home } from "./pages/Home";
 import { NewRoom } from "./pages/NewRoom";
-import { BrowserRouter, Route } from "react-router-dom";
-import { createContext, useState } from "react";
-import firebase from "firebase";
-import { auth } from "./services/firebase";
+// import { Room } from './pages/Room';
+// import { AdminRoom } from './pages/AdminRoom';
 
-type User = {
-  id: string;
-  name: string;
-  avatar: string;
-}
+import { AuthContextProvider } from './contexts/AuthContext'
 
-type AuthContextType = {
-  user: User | undefined;
-  signInWithGoogle: () => Promise<void>;
-}
-
-export const AuthContext = createContext({} as AuthContextType);
 function App() {
-  const [user, setUser] = useState<User>();
-
-  async function signInWithGoogle() {
-    
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await auth.signInWithPopup(provider);
-
-    if (result.user) {
-
-      const { displayName, photoURL, uid } = result.user;
-
-      if (!displayName || !photoURL) {
-        throw new Error("Missing information from Google Account.");
-      }
-
-      setUser({
-        id: uid,
-        name: displayName,
-        avatar: photoURL
-      })
-    }
-  }
   return (
     <BrowserRouter>
-      <AuthContext.Provider value={{ user, signInWithGoogle }}>
-        <Route path="/" exact component={Home} />
-        <Route path="/rooms/new" component={NewRoom} />
-      </AuthContext.Provider>
+      <AuthContextProvider>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/rooms/new" component={NewRoom} />
+          {/* <Route path="/rooms/:id" component={Room} />
+
+          <Route path="/admin/rooms/:id" component={AdminRoom} /> */}
+        </Switch>
+      </AuthContextProvider>
     </BrowserRouter>
   );
 }

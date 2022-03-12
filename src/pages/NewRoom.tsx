@@ -4,11 +4,10 @@ import googleIconImg from '../assets/images/google-icon.svg';
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../App';
-import { useContext } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 export function NewRoom() {
-    const { user, signInWithGoogle } = useContext(AuthContext);
+    const { user, signInWithGoogle } = useAuth();
     return (
         <div id="page-auth">
             <aside>

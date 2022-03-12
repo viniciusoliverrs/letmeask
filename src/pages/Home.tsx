@@ -4,7 +4,7 @@ import googleIconImg from '../assets/images/google-icon.svg';
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../App';
+import { AuthContext } from '../contexts/AuthContext';
 import { useContext } from 'react';
 
 export function Home() {
